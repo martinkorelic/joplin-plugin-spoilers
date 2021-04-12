@@ -1,0 +1,12 @@
+{
+	"manifest_version": 1,
+	"id": "5473573999992223244222",
+	"app_min_version": "1.7",
+	"version": "1.0.0",
+	"name": "def-toc",
+	"description": "Table of contents for definitions.",
+	"author": "martinkorelic",
+	"homepage_url": "",
+	"repository_url": "",
+	"keywords": []
+}
