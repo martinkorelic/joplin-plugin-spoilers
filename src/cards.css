@@ -1,0 +1,73 @@
+summary:focus{
+  outline: none;
+}
+
+summary:hover {
+  opacity: 0.7;
+}
+
+details > summary {
+  	list-style-type: none;
+	cursor: pointer;
+}
+
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+@keyframes open {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+details summary:before {
+	margin-right: 1.3em;
+	font-size: 1.5em;
+	vertical-align: middle;
+  content: "\2B9E  ";
+  display: inline-block;
+  transform-origin: center;
+  transition: 200ms linear;
+}
+
+details[open] summary ~ * {
+  animation: open 0.3s ease-in-out;
+}
+
+details[open] > summary:before {
+  	transform: rotate(90deg);
+}
+
+details {
+	font-size: 1rem;
+	box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+		0 10px 10px -5px rgba(0, 0, 0, 0.04);
+	width: 100%;
+  color: black;
+	background: #c2c2c2;
+	border-radius: 8px;
+  border: 1px solid #7a7a7a;
+	position: relative;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.summary-title {
+  user-select: none;
+  padding: 0.8em;
+  font-family: monospace;
+  border-radius: 8px;
+  font-size: 18px;
+}
+
+.summary-content {
+  border-top: 1px solid #7a7a7a;
+  cursor: default;
+  padding: 1em;
+  font-weight: 300;
+  line-height: 1.5;
+}

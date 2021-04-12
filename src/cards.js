@@ -1,4 +1,3 @@
-
 module.exports = {
     default: function(context) {
         return {
@@ -17,20 +16,33 @@ module.exports = {
                     if (token.info !== 'card') return defaultRender(tokens, idx, options, env, self);
 
                     // Split the card title and body by :[]:
-                    let { title, body } = token.content.match(/(?<title>.+)\n:\[(?<body>(?:.|\n)*?)\]:/i).groups;
+                    let card = token.content.match(/(?<title>.+)\n:\[(?<body>(?:.|\n)*?)\]:/i);
 
-                    // Re render markdown content within
-                    console.log(markdownIt.render(token.content));
+                    // Return default renderer if formatted wrong
+                    if (!card) return defaultRender(tokens, idx, options, env, self);
 
-                    return `<div>${title}</div><div>${markdownIt.render(body)}</div>`;
+                    let { title, body } = card.groups;
+
+                    if (!title || !body) return defaultRender(tokens, idx, options, env, self);
+
+                     // Re render markdown content within
+                    return `
+                    <details> \
+                        <summary class="summary-title">${title}</summary>
+                        <div class="summary-content">
+                        ${markdownIt.render(body)}
+                        </div>
+                    </details>`;
                 }
-
-                
 
             },
             // Assests such as JS or CSS that should be loaded in the rendered HTML document
             assets: function() {
-                return [];
+                return [
+                    {
+                        name: "./cards.css"
+                    } 
+                ];
             },
         }
     }

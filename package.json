@@ -1,6 +1,6 @@
 {
-  "name": "joplin-plugin-plugin",
-  "version": "1.0.0",
+  "name": "joplin-plugin-spoiler-cards",
+  "version": "0.2.0",
   "scripts": {
     "dist": "webpack --joplin-plugin-config buildMain && webpack --joplin-plugin-config buildExtraScripts && webpack --joplin-plugin-config createArchive",
     "prepare": "npm run dist",

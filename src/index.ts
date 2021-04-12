@@ -1,12 +1,14 @@
 import joplin from 'api';
 import { ContentScriptType, ToolbarButtonLocation } from 'api/types';
 
-const uslug = require('uslug');
+// const uslug = require('uslug');
 
 joplin.plugins.register({
 	onStart: async function() {
 
-		// TODO Need to check if deflist is enabled
+		/*
+		// Panel legacy (might upgrade and create table of cards panel)
+
 		const panels = joplin.views.panels;
 		const view = await panels.create('tod-panel');
 
@@ -22,7 +24,7 @@ joplin.plugins.register({
 		});
 
 		await joplin.views.toolbarButtons.create('todButton', 'toggleTOD', ToolbarButtonLocation.NoteToolbar);
-
+		
 		// Building the panel
 		await joplin.views.panels.setHtml(view, 'Loading...');
 		await joplin.views.panels.addScript(view, './webview.css');
@@ -47,63 +49,6 @@ joplin.plugins.register({
 		await panels.setHtml(view, `
 			<div class="container">Click to generate cards</div>
 		`);
-
-		/**
-			<div class="container">
-				// push method simple
-				<div class="card">
-					<div class="card-title"></div>
-					<div class="card-body"></div>
-				</div>
-			</div> 
-		*/
-
-
-		// Here we register new Markdown plugin
-		await joplin.contentScripts.register(
-			ContentScriptType.MarkdownItPlugin,
-			'table-tod',
-			'./table-tod-plugin.js'
-		);
-
-		await joplin.contentScripts.onMessage('table-tod', (message: any) => {
-			console.info(message);
-		});
-
-		/* 
-		await joplin.contentScripts.onMessage('testing', (message: any) => {
-			console.info(message.query);
-			console.info(message.type)
-			console.log("got it!")
-			return message + '+response';
-		});
-		
-		await joplin.views.panels.onMessage(panel, (message) => {
-			if (message.name === 'scrollToHash') {
-				// As the name says, the scrollToHash command makes the note scroll
-				// to the provided hash.
-				joplin.commands.execute('scrollToHash', message.hash)
-			}
-		});*/
-
-		console.info('Test plugin started!');
-		async function updateToDView() {
-			
-			// Get the current note in the workspace
-			const cards = await fetchDefCards();
-			slugs = {};
-
-			// Keep in mind that it can be `null` if nothing is currently selected!
-			if (cards) {
-								
-				console.info(cards);
-				console.info('Note content has changed!');
-
-			} else {
-				console.info('No note is selected.');
-			}
-
-		}
 
 		// Scans and fetches all the definitions made
 		async function fetchDefCards() {
@@ -135,22 +80,37 @@ joplin.plugins.register({
 
 		// Also update the TOC when the plugin starts
 		updateToDView();
+
+		async function updateToDView() {
+			
+			// Get the current note in the workspace
+			const cards = await fetchDefCards();
+			slugs = {};
+
+			// Keep in mind that it can be `null` if nothing is currently selected!
+			if (cards) {
+								
+				console.info(cards);
+				console.info('Note content has changed!');
+
+			} else {
+				console.info('No note is selected.');
+			}
+
+		}
+		*/
+
+		// Here we register new Markdown plugin
+		await joplin.contentScripts.register(
+			ContentScriptType.MarkdownItPlugin,
+			'table-tod',
+			'./cards.js'
+		);
+
 	},
 });
-/*
-function detectTOD(noteBody:string) {
 
-	noteBody = noteBody.replace(/\${\s*tod\s*}/g,'HAHHAHA');
-	console.info(noteBody);
-}
-
-function buildHtml(cards: Array<Object>) : string {
-
-
-
-	return "";
-}
-*/
+/* Helper functions
 
 let slugs = {};
 
@@ -171,3 +131,4 @@ function escapeHtml(unsafe:string) {
 		.replace(/"/g, "&quot;")
 		.replace(/'/g, "&#039;");
 }
+*/
