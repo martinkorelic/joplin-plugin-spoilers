@@ -1,6 +1,16 @@
 {
   "name": "joplin-plugin-spoiler-cards",
   "version": "0.2.0",
+  "description": "Joplin plugin allows you to create cards with title and extendable body.",
+  "author": "martinkorelic",
+  "homepage": "https://github.com/martinkorelic/joplin-plugin-spoiler-cards",
+  "bugs": {
+    "url": "https://github.com/martinkorelic/joplin-plugin-spoiler-cards/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/martinkorelic/joplin-plugin-spoiler-cards.git"
+  },
   "scripts": {
     "dist": "webpack --joplin-plugin-config buildMain && webpack --joplin-plugin-config buildExtraScripts && webpack --joplin-plugin-config createArchive",
     "prepare": "npm run dist",
@@ -24,7 +34,5 @@
     "webpack-cli": "^3.3.11",
     "yargs": "^16.2.0"
   },
-  "dependencies": {
-    "uslug": "^1.0.4"
-  }
+  "dependencies": {}
 }
