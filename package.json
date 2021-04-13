@@ -1,6 +1,6 @@
 {
   "name": "joplin-plugin-spoiler-cards",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Joplin plugin allows you to create cards with title and extendable body.",
   "author": "martinkorelic",
   "homepage": "https://github.com/martinkorelic/joplin-plugin-spoiler-cards",
