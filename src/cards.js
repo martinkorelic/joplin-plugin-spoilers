@@ -36,7 +36,6 @@ module.exports = {
                         </div>
                     </details>`;
                 }*/
-
             },
             // Assests such as JS or CSS that should be loaded in the rendered HTML document
             assets: function() {
