@@ -7,13 +7,15 @@ module.exports = {
 
                 markdownIt.block.ruler.after('fence', 'spoiler_card', spoiler_card, {alt: ['paragraph', 'reference', 'blockquote', 'list']});
                 
-                //markdownIt.renderer.rules.spoiler_card = spoiler_card_renderer;
                 /*
-                markdownIt.renderer.rules.text = function (tokens, idx, options, env, self) {
+                const defaultRender = markdownIt.renderer.rules.fence || function(tokens, idx, options, env, self) {
+                    return self.renderToken(tokens, idx, options, env, self);
+                };
+                markdownIt.renderer.rules.fence = function (tokens, idx, options, env, self) {
                     let token = tokens[idx];
 
                     // We detect if card block
-                    if (token.tag !== "p") return defaultRender(tokens, idx, options, env, self);
+                    if (token.info !== 'card') return defaultRender(tokens, idx, options, env, self);
 
                     // Split the card title and body by :[]:
                     let card = token.content.match(/(?<title>.+)\n:\[(?<body>(?:.|\n)*?)\]:/i);
@@ -58,10 +60,7 @@ function spoiler_card(state, start, end, silent) {
     var token;
     let curLine = start;
 
-    let firstLine;
-    if (pos + 2 > max) {
-		return false;
-	}
+    if (pos + 2 > max) return false;
 
     // Check when it starts with ':['
     if (state.src.slice(pos, pos+2) !== ':[') return false;  
@@ -70,9 +69,6 @@ function spoiler_card(state, start, end, silent) {
     // We don't accept empty card formats
     if (state.src.slice(pos, pos+2) == ']:') return false;
     pos += 2;
-
-    // Check if line is not empty
-    firstLine = state.src.slice(pos, max);
 
     if (silent) return true;    
 
@@ -88,10 +84,7 @@ function spoiler_card(state, start, end, silent) {
 
     curLine++;
     // Now there needs to be atleast some content before we render the card
-    if (state.isEmpty(curLine)) {
-        
-        return false;
-    }
+    if (state.isEmpty(curLine)) return false;
 
     // If the formatting is okay, we create new tokens
     /*
@@ -101,8 +94,6 @@ function spoiler_card(state, start, end, silent) {
     */
     
     state.push('details_open', 'details', 1);
-
-    console.log(state);
 
     token = state.push('summary_open', 'summary', 1);
     token.attrs = [[ 'class', 'summary-title' ]];
