@@ -127,9 +127,13 @@ module.exports =  {
                             }
                           }
 
-                        div#spoiler-block-body {
+                        #spoiler-block-body {
                             display: none;
                             animation: open 0.3s ease-in-out;
+                        }
+
+                        #spoiler-block-title {
+                            cursor: pointer;
                         }
 
                         input.spoiler-block-input:checked ~ label ~ div#spoiler-block-body {

@@ -1,6 +1,6 @@
 {
   "name": "joplin-plugin-spoiler-cards",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Joplin plugin for creating inline spoilers and spoiler blocks.",
   "author": "martinkorelic",
   "homepage": "https://github.com/martinkorelic/joplin-plugin-spoilers",
