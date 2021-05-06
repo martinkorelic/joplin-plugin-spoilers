@@ -1,31 +1,67 @@
-# Joplin Plugin - Spoiler cards
+# Joplin Plugin - Spoilers
 
-This Joplin plugin allows you to create cards with title and extendable body.
+This Joplin plugin allows you to create inline spoilers and spoiler blocks with title and extendable body.
 
-**Note**: Requires Joplin 1.7.0+
+**Note**: Requires Joplin 1.7.11+
 
-**Version**: 0.3.1
+**Version**: 1.0.0
 
-![](./docs/cards-plugin-preview.gif)
+**Spoilers (inline)**
+
+![](./docs/inline-spoiler-preview.gif)
+
+**Spoiler blocks**
+
+![](./docs/spoiler-block-preview.gif)
+
+
+
+## Installation
+
+- Open Joplin and navigate to `Preferences > Plugins`
+- Search for `Spoilers` and click install
+- Restart Joplin
+
+### Uninstall
+
+- Open Joplin and navigate to `Tools > Options > Plugins`
+- Search for `Spoilers` plugin
+- Press `Delete` to remove the plugin or `Disable` to disable it
+- Restart Joplin
 
 ## Usage
 
-In order to create a card, you need to write in this format:
+### Spoiler (inline)
+
+In order to create a spoiler (inline), you can:
+- press on the `Spoiler` button or
+- use the shortcut `Ctrl + Alt + O`
+- or write in the following format:
+
+```
+%%spoiler%%
+```
+
+### Spoiler block
+
+In order to create a spoiler block, you can:
+- press on the `Spoiler block` button or
+- use the shortcut `Ctrl + Alt + P`
+- or write in the following format:
 
 ```
 :[
-Card name here...
+Spoiler title here...
 
-Card body text here...
+Spoiler body text here...
 
 ]:
 ```
 
-Please note, that the empty line above and below card body text is **needed**.
-Card body supports markdown formatting as well.
+Please note, that the empty line above and below spoiler body text is **needed**.
+Spoiler title and body supports markdown formatting as well.
 
-### Example
-
+**Example**:
 ```
 :[
 3 ways to check if an Object has a property in JS
@@ -46,31 +82,58 @@ hero.toString; // => function() {...}
 hero.hasOwnProperty('toString'); // => false
 ~~~
 * * *
-....
 
 ]:
 ```
 
-## Custom styling of cards
+## Custom styles
 
-If you would like to style the spoiler cards to your preference, use the following in your `userstyle.css` file:
+If you would like to style the spoiler blocks to your preference, use the following in your `userstyle.css` file:
 
 
 ```css
-/* Styling of the card title */
+/* Styling of the spoiler block title */
 .summary-title {
   
 }
 
-/* Styling of the card body */
+/* Styling of the spoiler block body */
 .summary-content {
   
 }
 ```
 
+### Exporting styles
+
+By default when exporting with spoiler blocks, the blocks get extended, show the body and hides the arrows. Inline spoilers stay hidden.
+
+Alternately, if you would like to style the spoiler blocks to your liking when exporting, use the following in you `userstyle.css` file:
+```css
+@media print {
+
+  /* Hides the side arrow */
+  .summary-title:before {
+      content: "";
+  }
+
+  /* Container for spoiler blocks */
+  .spoiler-block {}
+
+  /* Container for spoiler title */
+  #spoiler-block-title {}
+  
+  /* Container for spoiler body */
+  #spoiler-block-body {
+      /* Shows the body contents */
+      display: block;
+      animation: none;
+  }
+
+}
+```
+
 ## Notes
 
-- I have not thoroughly tested the plugin, so note that **there might be bugs**.
-- I might have to change formatting in the future to be more convenient, but nothing significant from now on.
+- **There might be bugs**, [report them here](https://github.com/martinkorelic/joplin-plugin-spoilers/issues) and I'll try to fix them when I'll find time.
 
 > Created on 12th April 2021

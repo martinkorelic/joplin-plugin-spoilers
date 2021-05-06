@@ -1,15 +1,15 @@
 {
   "name": "joplin-plugin-spoiler-cards",
-  "version": "0.3.1",
-  "description": "Joplin plugin allows you to create cards with title and extendable body.",
+  "version": "1.0.0",
+  "description": "Joplin plugin for creating inline spoilers and spoiler blocks.",
   "author": "martinkorelic",
-  "homepage": "https://github.com/martinkorelic/joplin-plugin-spoiler-cards",
+  "homepage": "https://github.com/martinkorelic/joplin-plugin-spoilers",
   "bugs": {
-    "url": "https://github.com/martinkorelic/joplin-plugin-spoiler-cards/issues"
+    "url": "https://github.com/martinkorelic/joplin-plugin-spoilers/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/martinkorelic/joplin-plugin-spoiler-cards.git"
+    "url": "git+https://github.com/martinkorelic/joplin-plugin-spoilers.git"
   },
   "scripts": {
     "dist": "webpack --joplin-plugin-config buildMain && webpack --joplin-plugin-config buildExtraScripts && webpack --joplin-plugin-config createArchive",
@@ -18,11 +18,14 @@
   },
   "license": "MIT",
   "keywords": [
-    "joplin-plugin"
+    "joplin",
+    "joplin-plugin",
+    "markdown",
+    "markdownit"
   ],
   "devDependencies": {
-    "@types/node": "^14.0.14",
-    "chalk": "^4.1.0",
+    "@types/node": "^14.14.44",
+    "chalk": "^4.1.1",
     "copy-webpack-plugin": "^6.1.0",
     "fs-extra": "^9.0.1",
     "glob": "^7.1.6",
