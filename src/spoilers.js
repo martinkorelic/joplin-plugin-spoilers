@@ -74,7 +74,6 @@ module.exports =  {
                         mime: 'text/css',
                         text: `
                         .spoiler-block {
-                            font-size: 1rem;
                             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
                                         0 10px 10px -5px rgba(0, 0, 0, 0.04);
                             width: 100%;
@@ -125,7 +124,7 @@ module.exports =  {
                             100% {
                               opacity: 1;
                             }
-                          }
+                        }
 
                         #spoiler-block-body {
                             display: none;
@@ -148,14 +147,12 @@ module.exports =  {
                             border-top: 1px solid #7a7a7a;
                             cursor: default;
                             padding: 1em;
-                            font-weight: 300;
-                            line-height: 1.5;
                         }
 
                         /* Styles for exporting */
                         @media print {
 
-                            div#spoiler-block-body {
+                            #spoiler-block-body {
                                 display: block;
                                 animation: none;
                             }
@@ -163,6 +160,7 @@ module.exports =  {
                             .summary-title:before {
                                 content: "";
                             }
+
                         }
                         `
                     },
