@@ -4,7 +4,7 @@ This Joplin plugin allows you to create inline spoilers and spoiler blocks with 
 
 **Note**: Requires Joplin 1.7.11+
 
-**Version**: 1.0.1
+**Version**: 1.0.3
 
 **Spoilers (inline)**
 
