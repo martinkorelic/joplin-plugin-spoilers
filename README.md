@@ -36,7 +36,8 @@ This Joplin plugin allows you to create inline spoilers and spoiler blocks with 
 In order to create a spoiler (inline), you can:
 - press on the `Spoiler` button or
 - use the shortcut `Ctrl + Alt + O`
-- or write in the following format:
+- select text and use any of the previous options
+- or manually write in the following format:
 
 ```
 %%spoiler%%
@@ -47,7 +48,8 @@ In order to create a spoiler (inline), you can:
 In order to create a spoiler block, you can:
 - press on the `Spoiler block` button or
 - use the shortcut `Ctrl + Alt + P`
-- or write in the following format:
+- select text and use any of the previous options
+- or manually write in the following format:
 
 ```
 :[

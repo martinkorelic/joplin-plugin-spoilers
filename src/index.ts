@@ -10,7 +10,15 @@ joplin.plugins.register({
 			label: 'Spoiler block',
 			iconName: 'fas fa-angle-right',
 			execute: async () => {
-				await joplin.commands.execute('insertText',':[\nTitle...\n\nBody...\n\n]:');
+
+				const selectedText = (await joplin.commands.execute('selectedText') as string);
+				let content = selectedText.split("\n\n");
+
+				if (content.length > 1) {
+					await joplin.commands.execute('replaceSelection',`:[\n${content[0]}\n\n${content.slice(1).join("\n\n")}\n\n]:`);
+				} else {
+					await joplin.commands.execute('insertText',':[\nTitle\n\nBody\n\n]:');
+				}
 			}
 		});
 
@@ -31,7 +39,14 @@ joplin.plugins.register({
 			label: 'Spoiler',
 			iconName: 'fas fa-low-vision',
 			execute: async () => {
-				await joplin.commands.execute('insertText','%%spoiler%%');
+				const selectedText = (await joplin.commands.execute('selectedText') as string);
+				
+				if (selectedText) {
+					await joplin.commands.execute('replaceSelection',`%%${selectedText}%%`);
+				} else {
+					await joplin.commands.execute('insertText','%%spoiler%%');
+				}
+				
 			}
 		});
 
