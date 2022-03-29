@@ -181,7 +181,8 @@ module.exports =  {
                             box-shadow: 0 0 1px #ffffff;
                             color: #000;
                             user-select: none;
-                            display: inline-flex;
+                            overflow-wrap: anywhere;
+                            padding: 2px;
                         }
                         
                         input.spoiler-inline + label.spoiler-inline > span.spoiler-inline {
@@ -201,7 +202,7 @@ module.exports =  {
                             color: inherit;
                             box-shadow: none;
                             user-select: text;
-                            display: inline-flex;
+                            padding: 2px;
                         }
                         `
                     }
