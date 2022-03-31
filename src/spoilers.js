@@ -36,7 +36,7 @@ module.exports =  {
                     
                     var idxi = idx
                     var isBlocktype = false
-                    
+
                     // Check if inline spoiler needs to be of "display:block"
                     while (tokens[idxi].type !== 'spoiler_close') {
                         if (blocktypes.includes(tokens[idxi].type)) {
@@ -49,7 +49,7 @@ module.exports =  {
                     // Generate a random id to distinguish between events
                     let ranhex = genRanHex(8);
                     // We use a checkbox hack to implement a clickable event
-                    return `<input type="checkbox" class="spoiler-inline" id=${ranhex}><label${ isBlocktype ? ' style="display:block;"' : ''} class="spoiler-inline" for=${ranhex}><span${ isBlocktype ? ' style="display:block;"' : ''} class="spoiler-inline">`;
+                    return `<input type="checkbox" class="spoiler-inline" id=${ranhex}><label class="spoiler-inline${ isBlocktype ? ' spoiler-inline-block' : ''}" for=${ranhex}><span class="spoiler-inline ${ isBlocktype ? ' spoiler-inline-block' : ''}">`;
                 };
 
                 markdownIt.renderer.rules.spoiler_open = spoiler_inline_open;
@@ -183,6 +183,12 @@ module.exports =  {
                         inline: true,
                         mime: 'text/css',
                         text: `
+                        .spoiler-inline-block {
+                            display: block;
+                            max-width: max-content;
+                            max-height: max-content;
+                        }
+
                         input.spoiler-inline {
                             display: none;
                         }
