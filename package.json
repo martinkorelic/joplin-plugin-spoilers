@@ -1,6 +1,6 @@
 {
   "name": "joplin-plugin-spoiler-cards",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Joplin plugin for creating inline spoilers and spoiler blocks.",
   "author": "martinkorelic",
   "homepage": "https://github.com/martinkorelic/joplin-plugin-spoilers",
@@ -37,5 +37,8 @@
     "webpack-cli": "^3.3.11",
     "yargs": "^16.2.0"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "files": [
+    "publish"
+  ]
 }
