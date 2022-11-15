@@ -6,6 +6,7 @@ module.exports =  {
         return {
             plugin: async function(markdownIt, _options) {
                 const contentScriptId = _options.contentScriptId;
+                const blocktypes = ['image', 'link_open']
 
                 markdownIt.block.ruler.after('fence', 'spoiler_block', spoiler_block, {alt: ['paragraph', 'reference', 'blockquote', 'list']});
 
@@ -35,10 +36,22 @@ module.exports =  {
 
                     if (token.type !== 'spoiler_open') return spoiler_open_defaultRender(tokens, idx, options, env, self);
                     
+                    var idxi = idx
+                    var isBlocktype = false
+
+                    // Check if inline spoiler needs to be of "display:block"
+                    while (tokens[idxi].type !== 'spoiler_close') {
+                        if (blocktypes.includes(tokens[idxi].type)) {
+                            isBlocktype = true
+                            break;
+                        }
+                        idxi++
+                    }
+
                     // Generate a random id to distinguish between events
                     let ranhex = genRanHex(8);
                     // We use a checkbox hack to implement a clickable event
-                    return `<input type="checkbox" class="spoiler-inline" id=${ranhex}><label class="spoiler-inline" for=${ranhex}><span class="spoiler-inline">`;
+                    return `<input type="checkbox" class="spoiler-inline" id=${ranhex}><label class="spoiler-inline${ isBlocktype ? ' spoiler-inline-block' : ''}" for=${ranhex}><span class="spoiler-inline ${ isBlocktype ? ' spoiler-inline-block' : ''}">`;
                 };
 
                 markdownIt.renderer.rules.spoiler_open = spoiler_inline_open;
@@ -172,6 +185,12 @@ module.exports =  {
                         inline: true,
                         mime: 'text/css',
                         text: `
+                        .spoiler-inline-block {
+                            display: block;
+                            max-width: max-content;
+                            max-height: max-content;
+                        }
+
                         input.spoiler-inline {
                             display: none;
                         }
@@ -183,7 +202,8 @@ module.exports =  {
                             box-shadow: 0 0 1px #ffffff;
                             color: #000;
                             user-select: none;
-                            display: inline-flex;
+                            overflow-wrap: anywhere;
+                            padding: 2px;
                         }
                         
                         input.spoiler-inline + label.spoiler-inline > span.spoiler-inline {
@@ -203,7 +223,7 @@ module.exports =  {
                             color: inherit;
                             box-shadow: none;
                             user-select: text;
-                            display: inline-flex;
+                            padding: 2px;
                         }
                         `
                     }
