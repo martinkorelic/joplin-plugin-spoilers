@@ -1,8 +1,10 @@
 module.exports =  {
     default: function(context) {
+        const pluginId = context.pluginId;
+        console.info(`${pluginId} : Content Plugin default function`);
+        
         return {
             plugin: async function(markdownIt, _options) {
-                const pluginId = context.pluginId;
                 const contentScriptId = _options.contentScriptId;
                 const blocktypes = ['image', 'link_open']
 
@@ -242,18 +244,32 @@ function spoiler_block(state, start, end, silent) {
     var token;
     let curLine = start;
 
-    if (pos + 2 > max) return false;
+    if (pos + 2 > max)
+    { 
+	    console.info(`spoiler : Exit from 'spoiler_block' : no data`);
+    	return false;
+    }
 
     // Check when it starts with ':['
-    if (state.src.slice(pos, pos+2) !== ':[') return false;  
+    if (state.src.slice(pos, pos+2) !== ':[')  
+    { 
+	    console.info(`spoiler : Exit from 'spoiler_block' : no start token`);
+    	return false;
+    }
     pos += 2;
 
     // We don't accept empty card formats
-    if (state.src.slice(pos, pos+2) == ']:') return false;
+    if (state.src.slice(pos, pos+2) == ']:')
+    { 
+	    console.info(`spoiler : Exit from 'spoiler_block' : empty card`);
+    	return false;
+    }
     pos += 2;
 
     if (silent) return true;    
 
+    console.info(`spoiler : Entry into 'spoiler_block' : real block at ${curLine} - ${end} (${state.level})`);
+    
     curLine++;
     // Correct formatting of the title
     if (state.isEmpty(curLine)) return false;
@@ -301,11 +317,14 @@ function spoiler_block(state, start, end, silent) {
     token = state.push('spoiler_body_open', 'div', 1);
     token.attrs = [[ 'class', 'summary-content' ], [ 'id', 'spoiler-block-body' ]];
 
+	let bracketLevel = 1;
+    
     // Content starts
     for (next = curLine; !found;) {
         next++;
         
         if (next >= end) {
+		    console.info(`spoiler : Loop break in 'spoiler_block' : at ${next} >= ${end}`);
             break;
         }
         
@@ -315,10 +334,17 @@ function spoiler_block(state, start, end, silent) {
         if (pos < max && state.tShift[next] < state.blkIndent) {
             break;
         }
+        
+        if (state.src.slice(pos, max).length == 2 && state.src.slice(pos, max).trim().slice(-2) == ':[') {
+			bracketLevel ++;
+		}
 
         // Check if there's only ']:' on the line
         if (state.src.slice(pos, max).length == 2 && state.src.slice(pos, max).trim().slice(-2) == ']:') {
-            found = true;
+			if (bracketLevel == 1)
+            	found = true;
+            else
+				bracketLevel --;
         }
     }
 
@@ -333,6 +359,7 @@ function spoiler_block(state, start, end, silent) {
     // Finalize details    
     state.push('spoiler_block_close', 'div', -1);
 
+    console.info(`spoiler : Exit from 'spoiler_block' : real exit at ${next}`);
     return true;
 }
 
