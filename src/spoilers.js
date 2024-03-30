@@ -101,6 +101,21 @@ module.exports =  {
                             margin-bottom: 1em;
                             display: grid;
                         }
+			@media (prefers-color-scheme: dark) {
+                            .spoiler-block {
+                                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+                                            0 10px 10px -5px rgba(0, 0, 0, 0.04);
+                                width: 100%;
+                                color: white;
+                                background: #2c2c2c;
+                                border-radius: 8px;
+                                border: 1px solid #7a7a7a;
+                                position: relative;
+                                margin-top: 1em;
+                                margin-bottom: 1em;
+                                display: grid;
+                            }
+			}
 
                         .spoiler-block-input {
                             display: none;
